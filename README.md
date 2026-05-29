@@ -1,14 +1,14 @@
 # lgtg-starbucks-ui-skills
 
-一句话描述：将杂乱的后台管理系统前端界面，快速改造为美观典雅的星爸爸风格 UI 的 Skill 工具。
+一句话描述：本 UI Redesign Agent Skill 套装，面向 **Vue 2 + Element UI** 系统，将杂乱的后台管理系统前端界面，快速改造为美观典雅的星爸爸风格 UI。
 
 ❌️：旧版灵感通告 UI 样式过于丰富，部分交互不友好，手动逐页改造成本极高，容易引入 Bug。
 
 ✅️：本 Skill 沉淀了标准改造范式，只需简单调用，即可将旧代码转换为新 UI 规范代码，保留业务逻辑，仅重构视图层，效率提升 800%。
 
-面向 **Vue 2 + Element UI** 系统的 UI Redesign Agent Skill 套装：先出 HTML 效果图确认，再只改 Vue 的 `<template>` / `<style>`，不碰业务逻辑。
+改造流程 ：先出 HTML 效果图确认，再只改 Vue 的 `<template>` / `<style>`，不碰业务逻辑。
 
-包含两个 Skill：
+本套装包含两个 Skill：
 
 
 | Skill                                                      | 作用                                                    |
