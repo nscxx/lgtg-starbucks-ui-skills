@@ -1,6 +1,12 @@
 # lgtg-starbucks-ui-skills
 
-面向 **Vue 2 + Element UI** 管理后台的 Cursor Agent Skill 套装：先出 HTML 效果图确认，再只改 Vue 的 `<template>` / `<style>`，不碰业务逻辑。
+一句话描述：将杂乱的后台管理系统前端界面，快速改造为美观典雅的星爸爸风格 UI 的 Skill 工具。
+
+❌️：旧版灵感通告 UI 样式过于丰富，部分交互不友好，手动逐页改造成本极高，容易引入 Bug。
+
+✅️：本 Skill 沉淀了标准改造范式，只需简单调用，即可将旧代码转换为新 UI 规范代码，保留业务逻辑，仅重构视图层，效率提升 800%。
+
+面向 **Vue 2 + Element UI** 系统的 UI Redesign Agent Skill 套装：先出 HTML 效果图确认，再只改 Vue 的 `<template>` / `<style>`，不碰业务逻辑。
 
 包含两个 Skill：
 
@@ -70,7 +76,7 @@ chmod +x scripts/install.sh
 
 ---
 
-## 在 Cursor 里怎么用
+## 在 Cursor/claude 里怎么用
 
 在 Agent 对话输入：
 
@@ -232,4 +238,4 @@ A：流程可参考，但 class / Element 版本需自行调整，本仓库按 V
 
 ## License
 
-[MIT](LICENSE)
+[nsc](LICENSE)
