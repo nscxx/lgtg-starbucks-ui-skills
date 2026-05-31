@@ -37,25 +37,13 @@
 
 ---
 
-## 快速安装
+## 一键安装
 
-### 方式 1：一键脚本（推荐）
+The AI-native way — copy one line, paste, done
+In any ClaudeCode/Cursor session, copy-paste this exact line:
 
-**Windows（PowerShell）：**
-
-```powershell
-git clone https://github.com/nscxx/lgtg-starbucks-ui-skills.git
-cd lgtg-starbucks-ui-skills
-.\scripts\install.ps1
 ```
-
-**macOS / Linux：**
-
-```bash
-git clone https://github.com/nscxx/lgtg-starbucks-ui-skills.git
-cd lgtg-starbucks-ui-skills
-chmod +x scripts/install.sh
-./scripts/install.sh
+Please install this Claude Code skill for me: https://github.com/nscxx/lgtg-starbucks-ui-skills
 ```
 
 脚本会把 `skills/` 复制到：
@@ -65,14 +53,7 @@ chmod +x scripts/install.sh
 ~/.cursor/skills/deep-green-theme/
 ```
 
-安装后 **重启 Cursor** 或新开对话。
-
-### 方式 2：手动复制
-
-```text
-本仓库 skills/admin-ui-redesign/  →  ~/.cursor/skills/admin-ui-redesign/
-本仓库 skills/deep-green-theme/   →  ~/.cursor/skills/deep-green-theme/
-```
+安装后 **重启 ClaudeCode/Cursor** 或新开对话。
 
 ---
 
