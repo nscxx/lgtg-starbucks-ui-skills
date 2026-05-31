@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>供应商对账单 supplierBillPage — 效果图（供确认）</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #F7F6F1;
+      --surface: #FFFFFF;
+      --surface-2: #FBFBF8;
+      --surface-3: #F1F0EA;
+      --border: #E8E6DE;
+      --border-strong: #D6D3C8;
+      --text: #1A1A18;
+      --text-2: #5A5A55;
+      --text-3: #8A8A82;
+      --accent: #1B4332;
+      --accent-fade: #E9F0EC;
+      --warn: #B7791F;
+      --success: #0F6E47;
+      --info: #1F5DAA;
+      --radius: 6px;
+      --radius-lg: 10px;
+      --font-sans: "PingFang SC", "Microsoft YaHei", sans-serif;
+      --font-num: "Consolas", ui-monospace, monospace;
+    }
+    body {
+      font-family: var(--font-sans);
+      font-size: 13px;
+      color: var(--text);
+      background: #2a2a28;
+      padding: 16px;
+      line-height: 1.5;
+    }
+    .mockup-banner {
+      max-width: 1280px;
+      margin: 0 auto 12px;
+      padding: 10px 14px;
+      background: #1B4332;
+      color: #fff;
+      border-radius: var(--radius);
+      font-size: 12px;
+    }
+    .page {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: var(--bg);
+      padding: 20px 24px 32px;
+      border-radius: var(--radius-lg);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      min-height: 90vh;
+    }
+    .page-head { display: flex; align-items: flex-end; justify-content: space-between; }
+    .page-title { font-size: 22px; font-weight: 500; margin-bottom: 2px; }
+    .page-meta { display: flex; gap: 8px; font-size: 12px; color: var(--text-3); align-items: center; }
+    .page-meta b { color: var(--text); }
+    .page-meta .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--text-3); }
+    .btn {
+      height: 32px; padding: 0 12px; font-size: 12px; font-weight: 500;
+      border-radius: var(--radius); border: 1px solid var(--border-strong);
+      background: var(--surface); color: var(--text);
+    }
+    .btn-primary { background: var(--text); border-color: var(--text); color: #fff; }
+    .btn-accent {
+      background: var(--accent); border: none; color: #fff;
+      height: 26px; padding: 0 10px; font-size: 11px; border-radius: var(--radius);
+    }
+    .btn-ghost {
+      height: 26px; padding: 0 10px; font-size: 11px;
+      background: transparent; border: 1px solid var(--border-strong); color: var(--text-2);
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .stat {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 14px 16px;
+    }
+    .stat-label { font-size: 11px; color: var(--text-2); margin-bottom: 6px; }
+    .stat-value {
+      font-family: var(--font-num);
+      font-size: 24px;
+      font-weight: 500;
+    }
+    .stat-unit { font-size: 11px; color: var(--text-3); margin-left: 4px; font-family: var(--font-sans); }
+    .stat-value--amount { font-size: 20px; color: var(--accent); }
+    .stat-value--warn { color: var(--warn); }
+    .stat-delta { margin-top: 6px; font-size: 11px; color: var(--warn); }
+    .filterbar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 10px 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .filterbar input, .filterbar select {
+      height: 32px; padding: 0 10px; font-size: 12px;
+      background: var(--surface-3); border: 1px solid transparent;
+      border-radius: var(--radius); min-width: 160px;
+    }
+    .filter-actions { margin-left: auto; display: flex; gap: 8px; }
+    .workspace {
+      flex: 1;
+      min-height: 520px;
+    }
+    .three-col {
+      display: flex;
+      height: 100%;
+      min-height: 520px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .panel {
+      background: var(--surface);
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+    .panel-left { width: 240px; flex-shrink: 0; border-right: 1px solid var(--border); }
+    .panel-mid { width: 360px; flex-shrink: 0; border-right: 1px solid var(--border); }
+    .panel-right { flex: 1; }
+    .panel-header {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface-2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .panel-header h3 { font-size: 13px; font-weight: 500; }
+    .panel-list { flex: 1; overflow-y: auto; }
+    .list-item {
+      padding: 14px 12px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      cursor: default;
+    }
+    .list-item:hover { background: var(--surface-2); }
+    .list-item.active {
+      background: var(--accent-fade);
+      box-shadow: inset 3px 0 0 var(--accent);
+    }
+    .list-body { flex: 1; min-width: 0; }
+    .list-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+    .list-title { font-weight: 500; font-size: 13px; }
+    .list-amount { font-family: var(--font-num); font-weight: 500; color: var(--accent); font-size: 13px; }
+    .list-sub { font-size: 11px; color: var(--text-3); margin-top: 4px; }
+    .panel-foot {
+      padding: 10px 12px;
+      border-top: 1px solid var(--border);
+      background: var(--surface-2);
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      font-size: 12px;
+    }
+    table.dt { width: 100%; border-collapse: collapse; font-size: 12px; }
+    table.dt th {
+      font-size: 11px; font-weight: 500; color: var(--text-2);
+      padding: 9px 10px; background: var(--surface-2);
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+    }
+    table.dt th.center { text-align: center; }
+    table.dt th.num { text-align: right; }
+    table.dt td {
+      padding: 12px 10px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    table.dt tbody tr:hover { background: var(--surface-2); }
+    .amount-cell { text-align: center; font-family: var(--font-num); }
+    .amount-main { font-size: 14px; font-weight: 500; }
+    .amount-sub { font-size: 11px; color: var(--text-3); }
+    .status {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 12px; justify-content: center; width: 100%;
+    }
+    .status .dot { width: 6px; height: 6px; border-radius: 50%; }
+    .status.warn { color: var(--warn); }
+    .status.warn .dot { background: var(--warn); }
+    .status.success { color: var(--success); }
+    .status.success .dot { background: var(--success); }
+  </style>
+</head>
+<body>
+  <div class="mockup-banner">
+    <b>效果图 · supplierBillPage（供应商对账单）</b> — 三栏布局：月度账单 / 任务列表 / 回执列表。与当前已改 Vue 页面对照。确认后如需微调请说明。
+  </div>
+
+  <div class="page">
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">供应商对账单</h1>
+        <div class="page-meta">
+          <span>任务列表 <b>12</b> 条</span>
+          <span class="dot"></span>
+          <span>回执列表 <b>36</b> 条</span>
+          <span class="dot"></span>
+          <span>已选月份 <b>2</b></span>
+        </div>
+      </div>
+      <button class="btn">↻ 刷新</button>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-label">月度账单</div>
+        <div class="stat-value">24<span class="stat-unit">条</span></div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">任务列表</div>
+        <div class="stat-value">12<span class="stat-unit">条</span></div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">回执列表</div>
+        <div class="stat-value stat-value--amount">36<span class="stat-unit">条</span></div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">批量对账</div>
+        <div class="stat-value stat-value--warn">3</div>
+        <div class="stat-delta">已选月份 + 任务</div>
+      </div>
+    </div>
+
+    <div class="filterbar">
+      <input type="text" placeholder="请输入任务名称" style="min-width:220px" />
+      <select><option>请选择状态</option><option>待对账</option></select>
+      <div class="filter-actions">
+        <button class="btn">重置</button>
+        <button class="btn btn-primary">搜索</button>
+      </div>
+    </div>
+
+    <div class="workspace">
+      <div class="three-col">
+        <div class="panel panel-left">
+          <div class="panel-header">
+            <h3>☑ 月度账单</h3>
+            <button class="btn-accent">批量对账</button>
+          </div>
+          <div class="panel-list">
+            <div class="list-item active">
+              <input type="checkbox" checked />
+              <div class="list-body">
+                <div class="list-row">
+                  <span class="list-title">2025年3月</span>
+                  <span class="list-amount">¥ 42,800</span>
+                </div>
+                <div class="list-row" style="margin-top:8px">
+                  <span></span>
+                  <button class="btn-accent">对账</button>
+                </div>
+              </div>
+            </div>
+            <div class="list-item">
+              <input type="checkbox" />
+              <div class="list-body">
+                <div class="list-row">
+                  <span class="list-title">2025年2月</span>
+                  <span class="list-amount">¥ 38,120</span>
+                </div>
+              </div>
+            </div>
+            <div class="list-item">
+              <input type="checkbox" />
+              <div class="list-body">
+                <div class="list-row">
+                  <span class="list-title">2025年1月</span>
+                  <span class="list-amount">¥ 51,600</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel-foot">
+            <button class="btn">上一页</button>
+            <button class="btn">下一页</button>
+          </div>
+        </div>
+
+        <div class="panel panel-mid">
+          <div class="panel-header">
+            <h3>☑ 任务列表</h3>
+            <button class="btn-accent">批量对账</button>
+          </div>
+          <div class="panel-list">
+            <div class="list-item active">
+              <input type="checkbox" checked />
+              <div class="list-body">
+                <div class="list-row">
+                  <span class="list-title">春季种草任务-A</span>
+                  <span class="list-amount">¥ 12,800</span>
+                </div>
+                <div class="list-sub">结项时间：2025-03-18</div>
+                <div class="list-row" style="margin-top:6px">
+                  <span></span>
+                  <button class="btn-accent">对账</button>
+                </div>
+              </div>
+            </div>
+            <div class="list-item">
+              <input type="checkbox" />
+              <div class="list-body">
+                <div class="list-row">
+                  <span class="list-title">品牌专场直播</span>
+                  <span class="list-amount">¥ 8,600</span>
+                </div>
+                <div class="list-sub">结项时间：2025-03-15</div>
+              </div>
+            </div>
+          </div>
+          <div class="panel-foot" style="justify-content:space-between">
+            <span style="color:var(--text-3)">共 12 条</span>
+            <span>‹ 1 2 ›</span>
+          </div>
+        </div>
+
+        <div class="panel panel-right">
+          <div class="panel-header">
+            <h3>回执列表</h3>
+          </div>
+          <div class="panel-list" style="padding:0">
+            <table class="dt">
+              <thead>
+                <tr>
+                  <th>回执编号</th>
+                  <th class="center">平台</th>
+                  <th>账号</th>
+                  <th class="center">应付账款</th>
+                  <th class="center">对账状态</th>
+                  <th class="center">操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>RCP-0012</td>
+                  <td style="text-align:center">抖音</td>
+                  <td>小美说美妆</td>
+                  <td>
+                    <div class="amount-cell">
+                      <div class="amount-main">¥ 12,800</div>
+                      <div class="amount-sub">含税 ¥ 12,800</div>
+                    </div>
+                  </td>
+                  <td><span class="status warn"><span class="dot"></span>待对账</span></td>
+                  <td style="text-align:center"><button class="btn-ghost">对账</button></td>
+                </tr>
+                <tr>
+                  <td>RCP-0008</td>
+                  <td style="text-align:center">小红书</td>
+                  <td>笔记包 x3</td>
+                  <td>
+                    <div class="amount-cell">
+                      <div class="amount-main">¥ 8,600</div>
+                      <div class="amount-sub">含税 ¥ 8,600</div>
+                    </div>
+                  </td>
+                  <td><span class="status success"><span class="dot"></span>已确认</span></td>
+                  <td style="text-align:center">—</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="panel-foot" style="justify-content:space-between">
+            <span style="color:var(--text-3)">共 36 条</span>
+            <span>‹ 1 2 3 ›</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

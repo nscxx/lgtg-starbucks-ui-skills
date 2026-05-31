@@ -1,0 +1,58 @@
+/**
+ * 设计令牌 — 与 settlement-admin.html :root 一致
+ * 全站样式只引用这些变量，勿再散落写死色值
+ */
+:root {
+  --bg: #F7F6F1;
+  --surface: #FFFFFF;
+  --surface-2: #FBFBF8;
+  --surface-3: #F1F0EA;
+  --border: #E8E6DE;
+  --border-strong: #D6D3C8;
+  --text: #1A1A18;
+  --text-2: #5A5A55;
+  --text-3: #8A8A82;
+  --accent: #1B4332;
+  --accent-fade: #E9F0EC;
+  --accent-text: #143828;
+  --accent-hover: #143828;
+  --warn: #B7791F;
+  --warn-bg: #FDF5E6;
+  --danger: #B0291E;
+  --danger-bg: #FCEDEA;
+  --success: #0F6E47;
+  --success-bg: #E8F2EC;
+  --info: #1F5DAA;
+  --info-bg: #E8F0FA;
+  --radius-sm: 4px;
+  --radius: 6px;
+  --radius-lg: 10px;
+  --shadow-pop: 0 8px 24px -4px rgba(28, 25, 20, 0.12), 0 2px 6px -2px rgba(28, 25, 20, 0.06);
+  /* 优先本地 npm 字体；加载失败时回退系统字体（国内无网也可用） */
+  --font-sans: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "IBM Plex Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-num: "IBM Plex Mono", "SF Mono", "Consolas", ui-monospace, monospace;
+
+  /* 与 theme-override 兼容的别名 */
+  --brand: var(--accent);
+  --brand-hover: #2D6A4F;
+  --brand-active: var(--accent-hover);
+  --brand-light: var(--accent-fade);
+  --brand-lighter: var(--surface-2);
+  --brand-border: #A0C1B0;
+  --brand-disable: #8DAF9E;
+  --bg-page: var(--bg);
+  --st-success: var(--success);
+  --st-success-bg: var(--success-bg);
+  --st-warn: var(--warn);
+  --st-warn-bg: var(--warn-bg);
+  --st-info: var(--info);
+  --st-info-bg: var(--info-bg);
+  --st-danger: var(--danger);
+  --st-danger-bg: var(--danger-bg);
+
+  --layout-sidebar-width: 240px;
+  --layout-header-height: 52px;
+  --layout-tags-height: 34px;
+  --layout-content-padding-x: 24px;
+  --layout-content-padding-y: 20px;
+}

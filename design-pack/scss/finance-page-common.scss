@@ -1,0 +1,314 @@
+/**
+ * 财务列表页共用样式（billPage / supplierBillPage）
+ * 与 *-mockup.html 效果图 1:1 对齐
+ */
+
+.finance-page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 0;
+}
+
+.page-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.page-title {
+  margin: 0 0 2px;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.page-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-3);
+
+  b {
+    color: var(--text);
+    font-weight: 500;
+  }
+}
+
+.page-meta .dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--text-3);
+  flex-shrink: 0;
+}
+
+.page-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.btn-page {
+  height: 32px !important;
+  padding: 0 12px !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  border-radius: var(--radius) !important;
+  line-height: 30px !important;
+}
+
+.btn-page--default {
+  background: var(--surface) !important;
+  border: 1px solid var(--border-strong) !important;
+  color: var(--text) !important;
+}
+
+.btn-page--default:hover,
+.btn-page--default:focus {
+  background: var(--surface-3) !important;
+  border-color: var(--border-strong) !important;
+  color: var(--text) !important;
+}
+
+.btn-page--primary {
+  background: var(--text) !important;
+  border: 1px solid var(--text) !important;
+  color: #fff !important;
+}
+
+.btn-page--primary:hover,
+.btn-page--primary:focus {
+  background: #2a2a26 !important;
+  border-color: #2a2a26 !important;
+  color: #fff !important;
+}
+
+.btn-accent {
+  background: var(--accent) !important;
+  border: 1px solid var(--accent) !important;
+  color: #fff !important;
+  height: 26px !important;
+  padding: 0 10px !important;
+  font-size: 11px !important;
+  line-height: 24px !important;
+  border-radius: var(--radius) !important;
+}
+
+.btn-accent:hover:not(.is-disabled),
+.btn-accent:focus:not(.is-disabled) {
+  background: var(--accent-hover) !important;
+  border-color: var(--accent-hover) !important;
+}
+
+.btn-accent.is-disabled {
+  opacity: 0.45;
+}
+
+.btn-ghost {
+  height: 26px !important;
+  padding: 0 10px !important;
+  font-size: 11px !important;
+  border-radius: var(--radius-sm) !important;
+  background: transparent !important;
+  border: 1px solid var(--border-strong) !important;
+  color: var(--text-2) !important;
+}
+
+.btn-ghost:hover:not(.is-disabled) {
+  background: var(--surface-3) !important;
+  border-color: var(--accent) !important;
+  color: var(--accent) !important;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.stat {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 14px 16px;
+  transition: border-color 0.15s ease;
+
+  &:hover {
+    border-color: var(--border-strong);
+  }
+}
+
+.stat-label {
+  margin-bottom: 6px;
+  font-size: 11px;
+  color: var(--text-2);
+}
+
+.stat-value {
+  font-family: var(--font-num);
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--text);
+}
+
+.stat-unit {
+  margin-left: 4px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-3);
+}
+
+.stat-value--warn { color: var(--warn); }
+.stat-value--success { color: var(--success); }
+.stat-value--amount {
+  font-size: 20px;
+  color: var(--accent);
+}
+
+.stat-delta {
+  margin-top: 6px;
+  font-size: 11px;
+  color: var(--text-3);
+}
+
+.stat-delta--warn { color: var(--warn); }
+
+.filterbar {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 10px 12px;
+}
+
+.filter-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  margin: 0;
+
+  ::v-deep .el-form-item {
+    margin: 0 !important;
+  }
+
+  ::v-deep .el-form-item__label {
+    display: none !important;
+  }
+
+  ::v-deep .el-form-item__content {
+    line-height: 32px;
+  }
+}
+
+.filter-control {
+  width: 160px;
+}
+
+.filter-control--wide {
+  width: 220px;
+}
+
+.filter-field--date ::v-deep .filter-control--date {
+  width: 260px !important;
+}
+
+.filter-actions {
+  margin-left: auto !important;
+
+  ::v-deep .el-form-item__content {
+    display: flex;
+    gap: 8px;
+  }
+}
+
+.filterbar {
+  ::v-deep .el-input__inner,
+  ::v-deep .el-range-input {
+    height: 32px;
+    line-height: 32px;
+    background: var(--surface-3) !important;
+    border-color: transparent !important;
+    font-size: 12px;
+    color: var(--text);
+    border-radius: var(--radius);
+  }
+
+  ::v-deep .el-range-editor.el-input__inner {
+    padding: 0 10px;
+  }
+
+  ::v-deep .el-input__inner:focus,
+  ::v-deep .el-range-editor.is-active {
+    background: var(--surface) !important;
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 0 3px var(--accent-fade) !important;
+  }
+}
+
+.table-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.table-toolbar {
+  display: flex;
+  align-items: center;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-2);
+  font-size: 12px;
+  gap: 8px;
+}
+
+.toolbar-info {
+  color: var(--text-2);
+
+  b { color: var(--text); font-weight: 500; }
+  .c-warn { color: var(--warn); }
+}
+
+.toolbar-actions {
+  margin-left: auto;
+}
+
+.pagination-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  border-top: 1px solid var(--border);
+  background: var(--surface-2);
+  font-size: 12px;
+  color: var(--text-2);
+
+  ::v-deep .el-pagination {
+    font-weight: 400;
+  }
+
+  ::v-deep .el-pagination.is-background .el-pager li:not(.disabled).active {
+    background-color: var(--text) !important;
+    color: #fff !important;
+  }
+
+  ::v-deep .el-pagination.is-background .el-pager li:not(.disabled):hover {
+    color: var(--accent) !important;
+  }
+}
+
+@media (max-width: 1200px) {
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

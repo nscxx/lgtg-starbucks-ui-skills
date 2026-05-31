@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>客户管理 customerPage — 效果图（供确认）</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #F7F6F1;
+      --surface: #FFFFFF;
+      --surface-2: #FBFBF8;
+      --surface-3: #F1F0EA;
+      --border: #E8E6DE;
+      --border-strong: #D6D3C8;
+      --text: #1A1A18;
+      --text-2: #5A5A55;
+      --text-3: #8A8A82;
+      --accent: #1B4332;
+      --accent-fade: #E9F0EC;
+      --warn: #B7791F;
+      --warn-bg: #FDF5E6;
+      --danger: #B0291E;
+      --danger-bg: #FCEDEA;
+      --success: #0F6E47;
+      --success-bg: #E8F2EC;
+      --info: #1F5DAA;
+      --radius-sm: 4px;
+      --radius: 6px;
+      --radius-lg: 10px;
+      --shadow-pop: 0 8px 24px -4px rgba(28, 25, 20, 0.12);
+      --font-sans: "PingFang SC", "Microsoft YaHei", sans-serif;
+      --font-num: "Consolas", ui-monospace, monospace;
+    }
+    body {
+      font-family: var(--font-sans);
+      font-size: 13px;
+      color: var(--text);
+      background: #2a2a28;
+      line-height: 1.5;
+      padding: 16px;
+    }
+    .mockup-banner {
+      max-width: 1280px;
+      margin: 0 auto 12px;
+      padding: 10px 14px;
+      background: #1B4332;
+      color: #fff;
+      border-radius: var(--radius);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+    .mockup-banner b { font-weight: 600; }
+    .page {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: var(--bg);
+      padding: 20px 24px 32px;
+      border-radius: var(--radius-lg);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      min-height: 90vh;
+    }
+    .page-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .page-title {
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      margin-bottom: 2px;
+    }
+    .page-meta {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--text-3);
+    }
+    .page-meta b { color: var(--text); font-weight: 500; }
+    .page-meta .dot {
+      width: 3px; height: 3px; border-radius: 50%;
+      background: var(--text-3);
+    }
+    .page-actions { display: flex; gap: 8px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 32px;
+      padding: 0 12px;
+      font-size: 12px;
+      font-weight: 500;
+      border-radius: var(--radius);
+      border: 1px solid var(--border-strong);
+      background: var(--surface);
+      color: var(--text);
+      cursor: default;
+    }
+    .btn-primary {
+      background: var(--text);
+      border-color: var(--text);
+      color: #fff;
+    }
+    .btn-accent {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+    .btn-ghost {
+      height: 26px;
+      padding: 0 10px;
+      font-size: 11px;
+      background: transparent;
+      border: 1px solid var(--border-strong);
+      color: var(--text-2);
+    }
+    .btn-ghost--accent:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-fade); }
+    .btn-ghost--warn:hover { border-color: var(--warn); color: var(--warn); background: var(--warn-bg); }
+    .btn-ghost--danger { color: var(--danger); border-color: #d4a29e; }
+    .btn-ghost--danger:hover { background: var(--danger-bg); }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .stat {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 14px 16px;
+    }
+    .stat-label { font-size: 11px; color: var(--text-2); margin-bottom: 6px; }
+    .stat-value {
+      font-family: var(--font-num);
+      font-size: 24px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+    }
+    .stat-unit { font-size: 11px; color: var(--text-3); margin-left: 4px; font-family: var(--font-sans); }
+    .stat-value--success { color: var(--success); }
+    .stat-value--warn { color: var(--warn); }
+    .stat-value--amount { font-size: 20px; color: var(--accent); }
+
+    .filterbar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 10px 12px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+    .filterbar label { font-size: 12px; color: var(--text-2); margin-right: 4px; }
+    .filterbar input {
+      height: 32px;
+      padding: 0 10px;
+      font-size: 12px;
+      background: var(--surface-3);
+      border: 1px solid transparent;
+      border-radius: var(--radius);
+      color: var(--text);
+      width: 220px;
+    }
+    .filter-actions { margin-left: auto; display: flex; gap: 8px; }
+
+    .table-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      flex: 1;
+    }
+    .table-toolbar {
+      display: flex;
+      align-items: center;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface-2);
+      font-size: 12px;
+      color: var(--text-2);
+    }
+    .table-toolbar b { color: var(--text); }
+
+    table.dt {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    table.dt th {
+      text-align: left;
+      font-weight: 500;
+      color: var(--text-2);
+      font-size: 11px;
+      padding: 9px 12px;
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    table.dt th.num, table.dt td.num { text-align: right; }
+    table.dt th.center, table.dt td.center { text-align: center; }
+    table.dt th.actions, table.dt td.actions { text-align: right; }
+    table.dt td {
+      padding: 12px 12px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    table.dt tbody tr:hover { background: var(--surface-2); }
+
+    .id-cell { font-family: var(--font-num); font-size: 13px; color: var(--text-2); }
+    .name-cell { font-size: 13px; font-weight: 500; color: var(--text); max-width: 200px; }
+    .meta-block { display: flex; flex-direction: column; gap: 3px; }
+    .meta-line { display: flex; gap: 6px; font-size: 12px; line-height: 1.45; }
+    .meta-label { color: var(--text-3); flex-shrink: 0; min-width: 36px; }
+    .meta-value { color: var(--text); word-break: break-all; }
+    .meta-value.mono { font-family: var(--font-num); font-size: 11px; }
+
+    .duty-row { display: flex; gap: 6px; font-size: 12px; margin-bottom: 3px; }
+    .duty-label { color: var(--text-3); }
+    .duty-name { color: var(--text); font-weight: 500; }
+
+    .balance-list { display: flex; flex-direction: column; gap: 4px; align-items: flex-end; }
+    .balance-row { display: flex; gap: 8px; align-items: baseline; font-size: 12px; }
+    .balance-type { color: var(--text-3); font-size: 11px; }
+    .balance-amt { font-family: var(--font-num); font-weight: 500; color: var(--text); }
+    .balance-amt.is-zero { color: var(--text-3); }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .status .dot { width: 6px; height: 6px; border-radius: 50%; }
+    .status.success { color: var(--success); }
+    .status.success .dot { background: var(--success); }
+    .status.danger { color: var(--danger); }
+    .status.danger .dot { background: var(--danger); }
+
+    .action-group {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 6px;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    /* 联系人：默认只显示姓名，点击展开详情 */
+    .contact-cell { position: relative; }
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent);
+      cursor: pointer;
+      border-bottom: 1px solid transparent;
+      padding-bottom: 1px;
+    }
+    .contact-link:hover { border-bottom-color: var(--accent); }
+    .contact-link .chev { font-size: 10px; color: var(--text-3); }
+    .contact-empty { font-size: 12px; color: var(--text-3); }
+    .contact-popover {
+      margin-top: 8px;
+      padding: 10px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-pop, 0 4px 12px rgba(28,25,20,.08));
+      min-width: 220px;
+    }
+    .contact-popover .meta-line { margin-bottom: 4px; }
+    .contact-popover .meta-line:last-child { margin-bottom: 0; }
+
+    /* 操作：编辑 + 余额调整 + … 更多 */
+    .btn-more {
+      width: 26px;
+      height: 26px;
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      letter-spacing: 1px;
+      color: var(--text-2);
+      background: transparent;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-sm, 4px);
+      cursor: default;
+    }
+    .btn-more.is-open {
+      background: var(--surface-3);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .more-wrap { position: relative; }
+    .more-menu {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 4px);
+      min-width: 112px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 4px 12px rgba(28,25,20,.1);
+      z-index: 2;
+      overflow: hidden;
+    }
+    .more-menu button {
+      display: block;
+      width: 100%;
+      padding: 8px 12px;
+      text-align: left;
+      font-size: 12px;
+      border: none;
+      background: transparent;
+      color: var(--text);
+      cursor: default;
+    }
+    .more-menu button:hover { background: var(--surface-2); }
+    .more-menu button.is-danger { color: var(--danger); }
+    .more-menu button + button { border-top: 1px solid var(--border); }
+
+    .expand-panel {
+      background: var(--surface-2);
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 24px;
+      font-size: 12px;
+    }
+    .expand-item label { color: var(--text-3); display: block; margin-bottom: 2px; font-size: 11px; }
+
+    .pagination {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      border-top: 1px solid var(--border);
+      background: var(--surface-2);
+      font-size: 12px;
+      color: var(--text-2);
+    }
+    .pager { display: flex; gap: 4px; align-items: center; }
+    .pager span {
+      min-width: 26px; height: 26px;
+      padding: 0 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      font-family: var(--font-num);
+      border: 1px solid transparent;
+    }
+    .pager .active { background: var(--text); color: #fff; }
+    .pager select {
+      height: 26px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 12px;
+      background: var(--surface);
+      margin-right: 8px;
+    }
+
+    @media (max-width: 1100px) {
+      .stats { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div class="mockup-banner">
+    <b>效果图 · 客户管理（customer/index.vue）</b><br>
+    行首展开资质信息为<strong>两列</strong>排列；联系人点击姓名查看详情；操作栏「禁用/交易明细」在 ··· 菜单内。<br>
+    确认后已按此改 Vue。刷新系统内客户管理页查看效果。
+  </div>
+
+  <div class="page">
+    <!-- 页头 -->
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">客户管理</h1>
+        <div class="page-meta">
+          <span>共 <b>4</b> 家客户</span>
+          <span class="dot"></span>
+          <span>启用 <b>4</b> 家</span>
+          <span class="dot"></span>
+          <span>禁用 <b>0</b> 家</span>
+        </div>
+      </div>
+      <div class="page-actions">
+        <button class="btn btn-accent">+ 添加客户</button>
+      </div>
+    </div>
+
+    <!-- 汇总卡 -->
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-label">客户总数</div>
+        <div class="stat-value">4<span class="stat-unit">家</span></div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">启用中</div>
+        <div class="stat-value stat-value--success">4<span class="stat-unit">家</span></div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">已禁用</div>
+        <div class="stat-value stat-value--warn">0<span class="stat-unit">家</span></div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">现金账户余额合计</div>
+        <div class="stat-value stat-value--amount">¥1,959.00</div>
+      </div>
+    </div>
+
+    <!-- 筛选 -->
+    <div class="filterbar">
+      <label>客户名称</label>
+      <input type="text" placeholder="请输入客户名称">
+      <div class="filter-actions">
+        <button class="btn">重置</button>
+        <button class="btn btn-primary">查询</button>
+      </div>
+    </div>
+
+    <!-- 表格 -->
+    <div class="table-wrap">
+      <div class="table-toolbar">共 <b>4</b> 家客户 · 行首展开资质信息（两列） · 点击联系人查看联系方式</div>
+
+      <!-- 展开示例：两列排列 -->
+      <div class="expand-panel">
+        <div class="expand-item"><label>纳税人识别号</label>91310115MA1K3XXXXX</div>
+        <div class="expand-item"><label>注册地址</label>上海市浦东新区张江路 88 号</div>
+        <div class="expand-item"><label>电话</label>021-58888888</div>
+        <div class="expand-item"><label>开户行及账号</label>招商银行上海分行 6222 **** **** 1234</div>
+      </div>
+
+      <table class="dt">
+        <thead>
+          <tr>
+            <th style="width:28px"></th>
+            <th style="width:72px">客户ID</th>
+            <th style="width:140px">客户名称</th>
+            <th style="min-width:120px">联系人</th>
+            <th style="width:120px">内部责任人</th>
+            <th class="num" style="width:130px">账户余额</th>
+            <th class="center" style="width:72px">状态</th>
+            <th class="actions" style="width:180px">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="center">▾</td>
+            <td><span class="id-cell">41646</span></td>
+            <td><div class="name-cell">零贰零捌</div></td>
+            <td>
+              <div class="contact-cell">
+                <span class="contact-link">张三 <span class="chev">▾</span></span>
+                <div class="contact-popover">
+                  <div class="meta-line"><span class="meta-label">电话</span><span class="meta-value mono">13800138000</span></div>
+                  <div class="meta-line"><span class="meta-label">邮箱</span><span class="meta-value">zhang@example.com</span></div>
+                  <div class="meta-line"><span class="meta-label">地址</span><span class="meta-value">上海市静安区南京西路 1000 号</span></div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="duty-row"><span class="duty-label">销售</span><span class="duty-name">李四</span></div>
+              <div class="duty-row"><span class="duty-label">运营</span><span class="duty-name">王五</span></div>
+            </td>
+            <td class="num">
+              <div class="balance-list">
+                <div class="balance-row"><span class="balance-type">现金</span><span class="balance-amt">¥959.00</span></div>
+                <div class="balance-row"><span class="balance-type">赠送</span><span class="balance-amt is-zero">¥0.00</span></div>
+              </div>
+            </td>
+            <td class="center"><span class="status success"><span class="dot"></span>启用</span></td>
+            <td class="actions">
+              <div class="action-group">
+                <button class="btn btn-ghost btn-ghost--warn">编辑</button>
+                <button class="btn btn-accent">余额调整</button>
+                <div class="more-wrap">
+                  <button class="btn-more is-open" title="更多">···</button>
+                  <div class="more-menu">
+                    <button class="is-danger">禁用</button>
+                    <button>交易明细</button>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="center">▸</td>
+            <td><span class="id-cell">40940</span></td>
+            <td><div class="name-cell">圣戈班舒热佳…</div></td>
+            <td>
+              <div class="contact-cell">
+                <span class="contact-link">赵六 <span class="chev">▸</span></span>
+              </div>
+            </td>
+            <td>
+              <div class="duty-row"><span class="duty-label">销售</span><span class="duty-name">周七</span></div>
+              <div class="duty-row"><span class="duty-label">运营</span><span class="duty-name">吴八</span></div>
+            </td>
+            <td class="num">
+              <div class="balance-list">
+                <div class="balance-row"><span class="balance-type">现金</span><span class="balance-amt">¥1,000.00</span></div>
+                <div class="balance-row"><span class="balance-type">赠送</span><span class="balance-amt is-zero">¥0.00</span></div>
+              </div>
+            </td>
+            <td class="center"><span class="status success"><span class="dot"></span>启用</span></td>
+            <td class="actions">
+              <div class="action-group">
+                <button class="btn btn-ghost btn-ghost--warn">编辑</button>
+                <button class="btn btn-accent">余额调整</button>
+                <div class="more-wrap">
+                  <button class="btn-more" title="更多">···</button>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="center">▸</td>
+            <td><span class="id-cell">40812</span></td>
+            <td><div class="name-cell">测试客户 A</div></td>
+            <td><span class="contact-empty">—</span></td>
+            <td><span style="color:var(--text-3);font-size:12px">暂无信息</span></td>
+            <td class="num">
+              <div class="balance-list">
+                <div class="balance-row"><span class="balance-type">现金</span><span class="balance-amt is-zero">¥0.00</span></div>
+              </div>
+            </td>
+            <td class="center"><span class="status success"><span class="dot"></span>启用</span></td>
+            <td class="actions">
+              <div class="action-group">
+                <button class="btn btn-ghost btn-ghost--warn">编辑</button>
+                <button class="btn btn-accent">余额调整</button>
+                <div class="more-wrap">
+                  <button class="btn-more" title="更多">···</button>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="pagination">
+        <span>共 4 条</span>
+        <div class="pager">
+          <select><option>10 条/页</option></select>
+          <span>‹</span>
+          <span class="active">1</span>
+          <span>›</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

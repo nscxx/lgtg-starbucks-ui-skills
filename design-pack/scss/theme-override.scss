@@ -1,0 +1,335 @@
+/**
+ * ============================================================
+ *  深绿主题 · 全局覆盖层  (theme-override.scss)  v2
+ * ============================================================
+ *
+ *  本版解决“页面上有好几种绿打架”的问题。核心原则：
+ *
+ *  ┌─ 品牌色：全站统一成 1 个深绿（菜单/标签/主按钮/分页/链接…）
+ *  └─ 状态色：保持区分，绿=成功 黄=待办 蓝=进行中 红=失败
+ *            （这样不同状态一眼能分辨，正是我们想要的）
+ *
+ *  已知需要收编的“杂色”（你提供的真实色值）：
+ *    #00D3C9  原青色品牌色   -> 收敛成深绿品牌色
+ *    #E6FBFA  上面那个的浅底  -> 收敛成深绿浅底
+ *    #67C23A  Element嫩绿success -> 换成沉稳深绿状态色
+ *
+ *  特点：只新增不改原文件，删掉本文件引入即可 100% 还原。
+ *  ⚠️ 必须在 main.js 里“最后”引入（element css 之后）。
+ */
+
+/* 色板见 design-tokens.scss（与 settlement-admin.html 一致） */
+
+/* ============================================================
+ *  PART 0 · 全局背景色
+ * ============================================================ */
+body,
+.app-wrapper,
+.main-container,
+.app-main {
+  background-color: var(--bg-page) !important;
+}
+
+/* ============================================================
+ *  PART 1 · 品牌色统一
+ * ============================================================ */
+
+/* --- 1.1 写死的青色 customize 按钮 --- */
+.el-button--customize {
+  color: #fff !important;
+  background-color: var(--brand) !important;
+  border-color: var(--brand) !important;
+}
+.el-button--customize:focus,
+.el-button--customize:hover {
+  background: var(--brand-hover) !important;
+  border-color: var(--brand-hover) !important;
+  color: #fff !important;
+}
+.el-button--customize.is-active,
+.el-button--customize:active {
+  background: var(--brand-active) !important;
+  border-color: var(--brand-active) !important;
+  color: #fff !important;
+}
+.el-button--customize.is-disabled,
+.el-button--customize.is-disabled:active,
+.el-button--customize.is-disabled:focus,
+.el-button--customize.is-disabled:hover {
+  color: #fff !important;
+  background-color: var(--brand-disable) !important;
+  border-color: var(--brand-disable) !important;
+}
+.el-button--customize.is-plain {
+  color: var(--brand) !important;
+  background: var(--brand-light) !important;
+  border-color: var(--brand-border) !important;
+}
+.el-button--customize.is-plain:focus,
+.el-button--customize.is-plain:hover {
+  background: var(--brand) !important;
+  border-color: var(--brand) !important;
+  color: #fff !important;
+}
+.el-button--customize.is-plain:active {
+  background: var(--brand-active) !important;
+  border-color: var(--brand-active) !important;
+  color: #fff !important;
+}
+.el-button--customize.is-plain.is-disabled,
+.el-button--customize.is-plain.is-disabled:active,
+.el-button--customize.is-plain.is-disabled:focus,
+.el-button--customize.is-plain.is-disabled:hover {
+  color: var(--brand-disable) !important;
+  background-color: var(--brand-light) !important;
+  border-color: #D4E8E0 !important;
+}
+.el-dropdown .el-dropdown__caret-button.el-button--customize::before {
+  background: rgba(255, 255, 255, 0.35) !important;
+}
+
+/* --- 1.2 菜单激活色（文字 + 图标用品牌色，卡片效果由 sidebar.scss 控制）--- */
+.el-menu-item.is-active,
+.el-submenu.is-active > .el-submenu__title {
+  color: var(--brand) !important;
+}
+.el-menu-item.is-active i,
+.el-submenu.is-active > .el-submenu__title i {
+  color: var(--brand) !important;
+}
+/* 去掉原来的右边框指示条（改为 sidebar.scss 的左侧 ::after 实现） */
+.el-menu-item.is-active {
+  border-right-color: transparent !important;
+}
+/* 子菜单激活项：只改文字色，不改背景（背景由白色卡片控制） */
+.nest-menu .el-menu-item.is-active {
+  color: var(--brand) !important;
+  background: var(--surface) !important;
+}
+/* 标签页样式见 layout-shell.scss */
+
+/* --- 1.3 主按钮：原型 btn-primary 为深灰，accent 绿留给 customize --- */
+.el-button--primary {
+  background-color: var(--text) !important;
+  border-color: var(--text) !important;
+  color: #fff !important;
+}
+.el-button--primary:hover,
+.el-button--primary:focus {
+  background-color: #2A2A26 !important;
+  border-color: #2A2A26 !important;
+  color: #fff !important;
+}
+.el-button--primary:active {
+  background-color: #141412 !important;
+  border-color: #141412 !important;
+}
+.el-button--primary.is-plain {
+  color: var(--brand) !important;
+  background: var(--brand-light) !important;
+  border-color: var(--brand-border) !important;
+}
+.el-button--primary.is-plain:hover { background: var(--brand) !important; color: #fff !important; border-color: var(--brand) !important; }
+.el-button--text { color: var(--brand) !important; }
+
+.el-link.el-link--primary { color: var(--brand) !important; }
+.el-link.el-link--primary:hover { color: var(--brand-hover) !important; }
+
+.el-table__body tr.current-row > td.el-table__cell { background-color: var(--brand-light) !important; }
+.el-table__body tr:hover > td.el-table__cell { background-color: var(--surface-2) !important; }
+.el-table th.el-table__cell {
+  background-color: var(--surface-2) !important;
+  color: var(--text-2) !important;
+  font-weight: 500 !important;
+  font-size: 11px !important;
+}
+
+.el-pagination.is-background .el-pager li:not(.disabled).active {
+  background-color: var(--text) !important;
+  color: #fff !important;
+}
+.el-pagination .el-pager li.active { color: var(--text) !important; }
+.el-pagination .el-pager li:hover,
+.el-pagination button:hover { color: var(--accent) !important; }
+
+.el-checkbox__input.is-checked .el-checkbox__inner,
+.el-checkbox__input.is-indeterminate .el-checkbox__inner {
+  background-color: var(--brand) !important; border-color: var(--brand) !important;
+}
+.el-checkbox__input.is-checked + .el-checkbox__label { color: var(--brand) !important; }
+.el-radio__input.is-checked .el-radio__inner { background-color: var(--brand) !important; border-color: var(--brand) !important; }
+.el-radio__input.is-checked + .el-radio__label { color: var(--brand) !important; }
+.el-switch.is-checked .el-switch__core { background-color: var(--brand) !important; border-color: var(--brand) !important; }
+
+.el-tabs__item.is-active { color: var(--brand) !important; }
+.el-tabs__active-bar { background-color: var(--brand) !important; }
+.el-step__head.is-finish, .el-step__title.is-finish { color: var(--brand) !important; }
+.el-slider__bar { background-color: var(--brand) !important; }
+
+.el-input__inner,
+.el-textarea__inner {
+  border-color: var(--border-strong) !important;
+  color: var(--text) !important;
+  border-radius: var(--radius) !important;
+}
+.el-input__inner,
+.el-textarea__inner,
+.el-select .el-input__inner {
+  height: 32px;
+  line-height: 32px;
+  font-size: 12px;
+}
+.el-input.is-focus .el-input__inner,
+.el-input__inner:focus,
+.el-textarea__inner:focus,
+.el-select .el-input.is-focus .el-input__inner {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 3px var(--accent-fade) !important;
+}
+
+.el-select-dropdown__item.selected { color: var(--brand) !important; }
+.el-date-table td.current:not(.disabled) span { background-color: var(--brand) !important; }
+.el-date-table td.today span { color: var(--brand) !important; }
+
+.el-loading-spinner .path { stroke: var(--brand) !important; }
+.el-loading-spinner .el-loading-text { color: var(--brand) !important; }
+
+.el-tag--primary {
+  background-color: var(--brand-light) !important;
+  border-color: var(--brand-border) !important;
+  color: var(--brand) !important;
+}
+
+/* ============================================================
+ *  PART 2 · 状态色区分（故意不统一，保持彩色语义）
+ * ============================================================ */
+
+/* 2.1 success（原 #67C23A 嫩绿 -> 沉稳深绿） */
+.el-button--success {
+  background-color: var(--st-success) !important;
+  border-color: var(--st-success) !important;
+}
+.el-button--success:hover, .el-button--success:focus {
+  background-color: #0C7A45 !important; border-color: #0C7A45 !important;
+}
+.el-button--success.is-plain {
+  color: var(--st-success) !important;
+  background: var(--st-success-bg) !important;
+  border-color: #B6DCC6 !important;
+}
+.el-button--success.is-plain:hover { background: var(--st-success) !important; color: #fff !important; border-color: var(--st-success) !important; }
+.el-tag--success {
+  color: var(--st-success) !important;
+  background-color: var(--st-success-bg) !important;
+  border-color: #B6DCC6 !important;
+}
+.el-tag--success.el-tag--dark { color: #fff !important; background-color: var(--st-success) !important; }
+
+/* 2.2 warning（待处理 / 待审核：琥珀金） */
+.el-button--warning { background-color: var(--st-warn) !important; border-color: var(--st-warn) !important; }
+.el-button--warning:hover, .el-button--warning:focus { background-color: #A66B12 !important; border-color: #A66B12 !important; }
+.el-tag--warning {
+  color: var(--st-warn) !important;
+  background-color: var(--st-warn-bg) !important;
+  border-color: #EAD2A0 !important;
+}
+.el-tag--warning.el-tag--dark { color: #fff !important; background-color: var(--st-warn) !important; }
+
+/* 2.3 info（进行中 / 付款中：蓝） */
+.el-tag--info {
+  color: var(--st-info) !important;
+  background-color: var(--st-info-bg) !important;
+  border-color: #BCD3EE !important;
+}
+
+/* 2.4 danger（失败 / 驳回：砖红） */
+.el-button--danger { background-color: var(--st-danger) !important; border-color: var(--st-danger) !important; }
+.el-button--danger:hover, .el-button--danger:focus { background-color: #A52F23 !important; border-color: #A52F23 !important; }
+.el-tag--danger {
+  color: var(--st-danger) !important;
+  background-color: var(--st-danger-bg) !important;
+  border-color: #EFC2BD !important;
+}
+.el-tag--danger.el-tag--dark { color: #fff !important; background-color: var(--st-danger) !important; }
+
+/* ============================================================
+ *  PART 3 · 圆角与质感统一
+ * ============================================================ */
+.el-button {
+  border-radius: var(--radius);
+  font-size: 12px;
+  font-weight: 500;
+  height: 32px;
+  padding: 0 12px;
+}
+.el-button--mini,
+.el-button--small {
+  height: 26px;
+  padding: 0 10px;
+  font-size: 11px;
+}
+.el-button--default {
+  background: var(--surface) !important;
+  border-color: var(--border-strong) !important;
+  color: var(--text) !important;
+}
+.el-button--default:hover,
+.el-button--default:focus {
+  background: var(--surface-3) !important;
+  border-color: var(--border-strong) !important;
+  color: var(--text) !important;
+}
+.el-input__inner, .el-textarea__inner { border-radius: 6px; }
+.el-tag { border-radius: 4px; }
+.el-card, .el-dialog, .el-message-box { border-radius: 10px; }
+.el-drawer__header { margin-bottom: 0; padding: 16px 20px; border-bottom: 1px solid #EBF0EE; }
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-thumb { background: #C4D0CC; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #A8B3AF; }
+::-webkit-scrollbar-track { background: transparent; }
+
+/* ============================================================
+ *  PART 4 · 状态标签胶囊化（圆点 + 浅色底，仿原型）
+ * ============================================================
+ *
+ *  说明：本段只对用 <el-tag> 写的状态标签生效。
+ *  会在文字前自动加一个同色小圆点，做成“🟢 通过”那种胶囊。
+ *  若某些标签没变，说明它不是 el-tag 写的，告诉 Claude 标签的
+ *  HTML 结构即可精准补规则（不会改坏任何东西）。
+ */
+
+/* 通用：让所有 el-tag 变成圆角胶囊，圆点垂直居中 */
+.el-tag {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 5px;
+  height: auto;
+  min-height: 24px;
+  padding: 2px 10px !important;
+  border-radius: 12px !important;
+  line-height: 1.4;
+  font-weight: 500;
+}
+/* 圆点：用 ::before 伪元素，无需改 HTML */
+.el-tag::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: currentColor;   /* 圆点颜色跟随文字色 */
+}
+/* 圆点颜色按状态区分（继承文字色即可，已自动同色） */
+.el-tag--success::before { background: var(--st-success); }
+.el-tag--warning::before { background: var(--st-warn); }
+.el-tag--danger::before  { background: var(--st-danger); }
+.el-tag--info::before    { background: var(--st-info); }
+.el-tag--primary::before { background: var(--brand); }
+
+/* 深色实心标签（el-tag--dark）：圆点改成白色，避免看不见 */
+.el-tag.el-tag--dark::before { background: rgba(255,255,255,0.85); }
+
+/* 带关闭按钮的标签（如筛选条件）不强加圆点，避免错位 */
+.el-tag .el-tag__close { margin-left: 2px; }
+.el-tag:has(.el-tag__close)::before { display: none; }

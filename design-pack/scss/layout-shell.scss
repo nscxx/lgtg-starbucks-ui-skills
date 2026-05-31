@@ -1,0 +1,185 @@
+/**
+ * 全局壳子 — 侧栏 / 顶栏 / 标签页 / 内容区
+ * 对照 settlement-admin.html 的 layout 区块
+ */
+
+/* ── 全局字体与字号 ── */
+html,
+body {
+  font-family: var(--font-sans) !important;
+  font-size: 13px !important;
+  color: var(--text) !important;
+  font-feature-settings: "tnum" on, "lnum" on;
+  -webkit-font-smoothing: antialiased;
+}
+
+.tnum,
+.amount-main,
+.amount-sub,
+.stat-val,
+.el-pagination .el-pager li,
+.supplier-meta,
+.koc-uid,
+.date-day,
+.date-time {
+  font-family: var(--font-num);
+  font-feature-settings: "tnum" on;
+}
+
+/* ── 主内容区：全站页面底为米白 #F7F6F1，不要整块纯白 ── */
+#app,
+.app-wrapper {
+  background: var(--bg) !important;
+}
+
+#app .main-container {
+  padding: 0 !important;
+  background: var(--bg) !important;
+}
+
+#app .app-main {
+  padding: var(--layout-content-padding-y) var(--layout-content-padding-x) 32px !important;
+  background: var(--bg) !important;
+  min-height: calc(100vh - var(--layout-header-height)) !important;
+}
+
+/* 常见页面外层（vue-element-admin 老写法）去掉大白底 */
+#app .app-main .page-container {
+  background-color: var(--bg) !important;
+  min-height: 0 !important;
+}
+
+#app .app-main .main-content {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+#app .app-main .el-container,
+#app .app-main .el-header,
+#app .app-main .el-main,
+#app .app-main .el-aside,
+#app .app-main .el-footer {
+  background-color: transparent !important;
+}
+
+/* 卡片/表格保留白底，与页面底形成层次（对照 HTML surface） */
+#app .app-main .el-card {
+  background-color: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: none !important;
+}
+
+#app .app-main .el-card__body {
+  background-color: var(--surface) !important;
+}
+
+#app .app-main .filter-container,
+#app .app-main .filter-card {
+  background-color: var(--surface) !important;
+}
+
+#app .hasTagsView .app-main {
+  min-height: calc(100vh - var(--layout-header-height) - var(--layout-tags-height) - 12px) !important;
+}
+
+#app .main-container > .tags-view-container {
+  margin-bottom: 0 !important;
+}
+
+/* ── 侧栏 ── */
+#app .sidebar-container {
+  background-color: var(--surface-2) !important;
+  border-right: 1px solid var(--border) !important;
+  width: var(--layout-sidebar-width) !important;
+}
+
+#app .sidebar-container .el-menu-item,
+#app .sidebar-container .el-submenu > .el-submenu__title {
+  color: var(--text-2) !important;
+}
+
+#app .sidebar-container .nav-group-label {
+  color: var(--text-3) !important;
+  letter-spacing: 0.1em;
+}
+
+#app .sidebar-container .el-menu-item.is-active {
+  color: var(--text) !important;
+  box-shadow: 0 0 0 1px var(--border) !important;
+
+  &::after {
+    background: var(--accent) !important;
+  }
+}
+
+#app .sidebar-container .el-menu-item:not(.is-active):hover,
+#app .sidebar-container .submenu-title-noDropdown:hover,
+#app .sidebar-container .el-submenu__title:hover,
+#app .sidebar-container .nest-menu .el-menu-item:hover {
+  background-color: var(--surface-3) !important;
+  color: var(--text) !important;
+}
+
+/* ── 顶栏 Navbar（由 Navbar.vue scoped 配合，此处补全固定高度）── */
+#app .navbar {
+  height: var(--layout-header-height) !important;
+  background: var(--surface-2) !important;
+  border-bottom: 1px solid var(--border) !important;
+  box-shadow: none !important;
+}
+
+/* ── 标签页 TagsView ── */
+#app .tags-view-container {
+  height: var(--layout-tags-height) !important;
+  background: var(--surface-2) !important;
+  border-bottom: 1px solid var(--border) !important;
+  box-shadow: none !important;
+}
+
+#app .tags-view-container .tags-view-item {
+  height: 26px !important;
+  line-height: 26px !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text-2) !important;
+  background: transparent !important;
+  border-radius: var(--radius) !important;
+  font-size: 12px !important;
+  margin-top: 4px !important;
+  padding: 0 12px !important;
+  transition: background 0.12s ease, box-shadow 0.12s ease, color 0.12s ease;
+}
+
+#app .tags-view-container .tags-view-item:hover {
+  background: var(--surface-3) !important;
+  color: var(--text) !important;
+}
+
+#app .tags-view-container .tags-view-item.active {
+  background: var(--surface) !important;
+  color: var(--text) !important;
+  font-weight: 500 !important;
+  border-color: var(--border) !important;
+  box-shadow: 0 0 0 1px var(--border) !important;
+}
+
+#app .tags-view-container .tags-view-item.active::before {
+  display: none !important;
+}
+
+#app .tags-view-container .tags-view-item .el-icon-close:hover {
+  background-color: var(--surface-3) !important;
+  color: var(--text-2) !important;
+}
+
+#app .tags-view-container .contextmenu {
+  border-radius: var(--radius) !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: var(--shadow-pop) !important;
+  color: var(--text) !important;
+
+  li:hover {
+    background: var(--surface-3) !important;
+    color: var(--accent) !important;
+  }
+}

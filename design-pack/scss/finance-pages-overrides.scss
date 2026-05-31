@@ -1,0 +1,57 @@
+/**
+ * 财务页 Element 穿透覆盖（非 scoped，确保压过组件默认样式）
+ */
+#app .bill-page,
+#app .supplier-bill-page,
+#app .customer-page {
+  .el-table {
+    background-color: transparent !important;
+    color: var(--text);
+
+    &::before {
+      display: none;
+    }
+  }
+
+  .el-table th.el-table__cell {
+    background-color: var(--surface-2) !important;
+    border-bottom: 1px solid var(--border) !important;
+    border-right: none !important;
+  }
+
+  .el-table td.el-table__cell {
+    border-bottom: 1px solid var(--border) !important;
+    border-right: none !important;
+  }
+
+  .el-table__body tr:hover > td.el-table__cell {
+    background-color: var(--surface-2) !important;
+  }
+
+  .el-table .el-table__cell .cell {
+    font-size: 12px;
+    line-height: 1.45;
+  }
+
+  .el-table thead .el-table__cell .cell {
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    color: var(--text-2) !important;
+    padding: 9px 12px !important;
+  }
+
+  .el-table tbody .el-table__cell .cell {
+    padding: 12px 12px !important;
+    color: var(--text) !important;
+  }
+
+  .el-checkbox__inner {
+    border-color: var(--border-strong);
+    border-radius: 3px;
+  }
+
+  .el-checkbox__input.is-checked .el-checkbox__inner {
+    background-color: var(--accent) !important;
+    border-color: var(--accent) !important;
+  }
+}

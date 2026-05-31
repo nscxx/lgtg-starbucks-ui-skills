@@ -1,0 +1,14 @@
+// 粘贴到 src/main.js（Element UI 全量 css 之后、App 之前）
+// 顺序不可打乱；theme-override 必须最后
+
+import '@/styles/element-variables.scss'
+import '@/styles/design-tokens.scss'
+import '@/styles/layout-shell.scss'
+import '@/styles/finance-pages-overrides.scss'
+import '@/styles/theme-override.scss'
+
+// 字体（main.js 更靠前位置另加）：
+// import '@fontsource/noto-sans-sc/400.css'
+// import '@fontsource/noto-sans-sc/500.css'
+// import '@fontsource/ibm-plex-mono/400.css'
+// …见 lgtg_biz_admin/src/main.js

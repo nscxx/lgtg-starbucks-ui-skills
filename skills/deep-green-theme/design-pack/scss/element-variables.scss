@@ -1,0 +1,70 @@
+/**
+* ============================================================
+*  Element UI 主题变量 —— 深绿稳重财务风
+*  本文件由 Claude 改造，原青蓝双色 -> 统一深绿主色
+*  改造日期：2026-05
+* ============================================================
+*
+*  说明：这里定义的是 Element UI 组件的“源头”颜色变量。
+*  改这里，全站的按钮 / 表格 / 表单 / 弹窗 / 分页等
+*  Element 组件都会自动跟着变色，无需逐页修改。
+*/
+
+/* ---------- 字号 ---------- */
+$--font-size-small: 11px;
+$--font-size-base: 13px;
+
+/* ---------- 主题色：墨绿稳重财务风 ---------- */
+/* 主色：深墨绿，沉稳专业 */
+$--color-primary: #1B4332;       /* 墨绿，参考设计稿 */
+$--color-success: #0F6E47;       /* 成功：深绿，区别于主色 */
+$--color-warning: #B7791F;       /* 警告：琥珀金 */
+$--color-danger:  #B0291E;       /* 危险：砖红（HTML 原型） */
+$--color-info:    #1F5DAA;       /* 信息：蓝（HTML 原型） */
+
+/* 主色的衍生浅色（用于 hover / 浅底） */
+$--color-primary-light-1: #2E5544;
+$--color-primary-light-2: #416756;
+$--color-primary-light-3: #547968;
+$--color-primary-light-4: #678B7A;
+$--color-primary-light-5: #7A9D8C;
+$--color-primary-light-6: #8DAF9E;
+$--color-primary-light-7: #A0C1B0;
+$--color-primary-light-8: #C0D9D0;
+$--color-primary-light-9: #E8F0EC;   /* 最浅，用于选中行背景、浅底标签 */
+
+/* ---------- 文字颜色 ---------- */
+$--color-text-primary:  #1A1A18;
+$--color-text-regular:  #5A5A55;
+$--color-text-secondary: #8A8A82;
+$--color-text-placeholder: #8A8A82;
+
+/* ---------- 按钮 ---------- */
+$--button-font-weight: 400;
+
+/* ---------- 边框 ---------- */
+$--border-color-base:    #D6D3C8;
+$--border-color-light:   #E8E6DE;
+$--border-color-lighter: #E8E6DE;
+$--border-radius-base:   6px;        /* 原默认 4px -> 6px，更柔和现代 */
+$--border-radius-small:  4px;
+
+/* ---------- 表格 ---------- */
+$--table-border: 1px solid #E2E8E5;
+$--table-header-background-color: #FBFBF8;
+$--table-row-hover-background-color: #FBFBF8;
+
+/* ---------- 统计组件 ---------- */
+$statistic-justify: flex-start;
+
+/* ---------- 背景 ---------- */
+$--background-color-base: #F7F6F1;
+
+/* icon font path, required */
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+
+// the :export directive is the magic sauce for webpack
+// https://www.bluematador.com/blog/how-to-share-variables-between-js-and-sass
+:export {
+  theme: $--color-primary;
+}
